@@ -1,0 +1,12 @@
+{
+  "notes": [
+    {
+      "id": "81860c28-ebd4-45f0-bf72-b28525da2c07",
+      "text": "Installing tensorflow from source"
+    },
+    {
+      "id": "30100f1a-8501-4df6-8c28-5e254275d714",
+      "text": "Training MNIST "
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+---
+swagger: "2.0"
+info:
+  description: "Very simplistic API to handle notes.\n"
+  version: "0.0.1"
+  title: "Notes"
+host: "localhost:8080"
+basePath: "/"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /notes:
+    get:
+      operationId: "getAllNotes"
+      parameters: []
+      responses:
+        200:
+          description: "Get all notes"
+      x-swagger-router-controller: "Default"
+    post:
+      operationId: "postNote"
+      parameters:
+      - in: "body"
+        name: "note"
+        description: "Text of the note we want to save"
+        required: false
+        schema:
+          $ref: "#/definitions/Note"
+      responses:
+        201:
+          description: "Note was correctly created"
+      x-swagger-router-controller: "Default"
+  /notes/{id}:
+    get:
+      operationId: "getNotesById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the note."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Note was fetched correctly"
+        404:
+          description: "Note wasn't found"
+      x-swagger-router-controller: "Default"
+    put:
+      operationId: "putNotesById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the note."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "note"
+        description: "Text of the note we want to save"
+        required: false
+        schema:
+          $ref: "#/definitions/Note"
+      responses:
+        200:
+          description: "Note was replaced."
+        500:
+          description: "Internal server error"
+      x-swagger-router-controller: "Default"
+    delete:
+      operationId: "deleteNotesById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the note."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "note"
+        description: "Text of the note we want to save"
+        required: false
+        schema:
+          $ref: "#/definitions/Note"
+      responses:
+        204:
+          description: "Note was deleted"
+        404:
+          description: "Note missing"
+      x-swagger-router-controller: "Default"
+    patch:
+      operationId: "patchNotesById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the note."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "note"
+        description: "Text of the note we want to save"
+        required: false
+        schema:
+          $ref: "#/definitions/Note"
+      responses:
+        200:
+          description: "Note was changed."
+        500:
+          description: "Internal server error"
+      x-swagger-router-controller: "Default"
+definitions:
+  Note:
+    type: "object"
+    properties:
+      text:
+        type: "string"
+        description: "The note of the text"
