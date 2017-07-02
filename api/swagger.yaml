@@ -12,6 +12,17 @@ consumes:
 - "application/json"
 produces:
 - "application/json"
+securityDefinitions:
+  OauthSecurity:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: 'http://notes-server.firebaseapp.com'
+    tokenUrl: 'http://notes-server.firebaseapp.com'
+    scopes:
+      write:notes: modify all notes
+      read:notes: read all notes
+security:
+    - OauthSecurity: []
 paths:
   /notes:
     get:
@@ -20,6 +31,10 @@ paths:
       responses:
         200:
           description: "Get all notes"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Note"
       x-swagger-router-controller: "Default"
     post:
       operationId: "postNote"
@@ -113,6 +128,9 @@ definitions:
   Note:
     type: "object"
     properties:
+      id:
+        type: "string"
+        description: "The unique ID for the note"
       text:
         type: "string"
         description: "The note of the text"
