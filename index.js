@@ -38,27 +38,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerMetadata({
     basePath: '/v2'
   }));
-
-  app.use(middleware.swaggerSecurity({
-    OauthSecurity: function(req, def, scopes, callback) {
-      admin.auth().verifyIdToken(req.body.loginFirebaseToken)
-        .then(function(decodedToken) {
-          if(decodedToken.uid == 'xkLPihAPCBcLAVDMOhcUjjOhlYy2') {
-            return callback();
-          }
-          req.res.status(401).json({
-            message: "Wrong Authenticate"
-          });
-          req.res.end();
-        }).catch(function(error) {
-          req.res.status(401).json({
-            message: "Please Authenticate "+error
-          });
-          req.res.end();
-        });
-    }
-  }))
-
+  
   // Validate Swagger requests
   app.use(middleware.swaggerValidator({
     validateResponse: true
